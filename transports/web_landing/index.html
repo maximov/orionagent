@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>AI Agent - Web UI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <h1>AI Agent - Web UI</h1>
+      <div class="api-settings">
+        <label>API:</label>
+        <input id="apiBase" type="text" placeholder="http://localhost:8001" />
+        <button id="saveApi">Save</button>
+      </div>
+    </header>
+
+    <main class="chat">
+      <div id="messages" class="messages"></div>
+      <form id="composer" class="composer">
+        <input id="prompt" type="text" placeholder="Напишите сообщение…" autocomplete="off" />
+        <button id="send" type="submit">Отправить</button>
+      </form>
+    </main>
+
+    <footer class="footer">
+      <small>Core API endpoint: <span id="apiLabel"></span></small>
+    </footer>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

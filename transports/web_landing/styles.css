@@ -1,0 +1,117 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #22d3ee;
+  --user: #334155;
+  --assistant: #1f2937;
+  --system: #0ea5e9;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: radial-gradient(1200px 600px at 80% -20%, #0ea5e933, transparent), var(--bg);
+  color: var(--text);
+}
+
+.wrap {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 12px;
+  gap: 12px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0b1220aa;
+  backdrop-filter: blur(6px);
+  border: 1px solid #1f2937;
+  border-radius: 14px;
+  padding: 10px 14px;
+}
+.topbar h1 { font-size: 18px; margin: 0; }
+.api-settings { display: flex; gap: 8px; align-items: center; }
+.api-settings input {
+  background: #0b1220;
+  color: var(--text);
+  border: 1px solid #1f2937;
+  padding: 6px 8px;
+  border-radius: 8px;
+  min-width: 260px;
+}
+.api-settings button {
+  background: var(--accent);
+  color: #0b1220;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.chat {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background: #0b1220aa;
+  border: 1px solid #1f2937;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.messages {
+  overflow: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg {
+  padding: 10px 12px;
+  border-radius: 12px;
+  max-width: 85%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border: 1px solid #1f2937;
+}
+.msg.user { align-self: flex-end; background: var(--user); }
+.msg.assistant { align-self: flex-start; background: var(--assistant); }
+.msg.system { align-self: center; background: #0ea5e922; border-color: #0ea5e9; color: #c7eefc; }
+
+.composer {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #1f2937;
+  background: #0b1220aa;
+}
+.composer input {
+  flex: 1;
+  background: #0b1220;
+  color: var(--text);
+  border: 1px solid #1f2937;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+.composer button {
+  background: var(--accent);
+  color: #0b1220;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}

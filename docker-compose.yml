@@ -1,0 +1,22 @@
+services:
+  core-api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.core
+    image: ai-agent-core:latest
+    env_file: .env
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+
+  tg-bot:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.tg
+    image: ai-agent-tg:latest
+    env_file: .env
+    environment:
+      - CORE_URL=http://core-api:8000
+    depends_on:
+      - core-api
+    restart: unless-stopped
