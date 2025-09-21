@@ -42,10 +42,22 @@ async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         await update.message.reply_text(f"Ошибка: {e}")
 
+async def rag(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        r = requests.post(f"{CORE_URL}/v1/toggle_rag", timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        enabled = data.get("rag_enabled", False)
+        state = "включен" if enabled else "выключен"
+        await update.message.reply_text(f"Режим RAG теперь {state}")
+    except Exception as e:
+        await update.message.reply_text(f"Ошибка при переключении RAG: {e}")
+
 def run():
     app = Application.builder().token(TELEGA_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("reset", reset))
+    app.add_handler(CommandHandler("rag", rag))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, chat))
     print(f"Telegram bot → CORE_URL={CORE_URL}")
     app.run_polling()

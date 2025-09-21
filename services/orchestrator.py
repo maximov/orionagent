@@ -31,6 +31,10 @@ class ChatOrchestrator:
 
     def set_rag(self, enabled: bool) -> None:
         self.rag = bool(enabled)
+    
+    def toggle_rag(self) -> bool:
+        self.rag = not self.rag
+        return self.rag
 
     def reply(self, channel: str, user_id: str, user_text: str) -> List[str]:        
         clean = sanitize(user_text or "")

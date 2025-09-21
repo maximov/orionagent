@@ -83,6 +83,11 @@ def create_app() -> FastAPI:
     def healthz():
         return {"status": "ok"}
 
+    @app.post("/v1/toggle_rag")
+    def toggle_rag():
+        enabled = _orch.toggle_rag()
+        return {"rag_enabled": enabled}
+
     # Статика
     STATIC_DIR = Path(__file__).parent / "static"
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
