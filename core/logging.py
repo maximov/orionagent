@@ -12,17 +12,14 @@ def _coerce_level(level: str | None) -> int:
     return getattr(logging, lvl, logging.INFO)
 
 def _ensure_formatter(logger: logging.Logger, fmt: str, datefmt: str) -> None:
-    # Задаём единый формат всем хендлерам логгера
     formatter = logging.Formatter(fmt=fmt, datefmt=datefmt)
     for h in logger.handlers:
         h.setFormatter(formatter)
 
 def setup_logging(level: str | None = None) -> None:
-    """Инициализация логирования: общий формат/уровень + приведение uvicorn-логгеров."""
     lvl = _coerce_level(level)
 
     root = logging.getLogger()
-    # Если корневой логгер уже имеет хендлеры (uvicorn/gunicorn), не полагаемся на basicConfig
     if root.handlers:
         root.setLevel(lvl)
         _ensure_formatter(root, DEFAULT_FMT, DEFAULT_DATEFMT)
