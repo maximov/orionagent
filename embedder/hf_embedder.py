@@ -1,10 +1,11 @@
+# embedder/hf_embedder.py
 from __future__ import annotations
 from typing import List, Any
 
 try:
     from langchain_huggingface import HuggingFaceEmbeddings
     _HUGGINGFACE_SOURCE = "langchain_huggingface"
-except Exception:
+except ImportError:
     from langchain_community.embeddings import HuggingFaceEmbeddings
     _HUGGINGFACE_SOURCE = "langchain_community"
 
@@ -12,15 +13,16 @@ from .base import BaseEmbedder, SupportsLangChainEmbedding
 
 
 class HFEmbedder(BaseEmbedder):
-    def __init__(self,
-                 model_name: str = "sentence-transformers/all-mpnet-base-v2",
-                 device: str = "cpu",
-                 normalize_embeddings: bool = False,
-                 **kwargs: Any) -> None:
+    def __init__(
+        self,
+        model_name: str = "sentence-transformers/all-mpnet-base-v2",
+        device: str = "cpu",
+        normalize_embeddings: bool = False,
+        **kwargs: Any,
+    ) -> None:
         self.model_name = model_name
         self.device = device
-        self.normalize = normalize_embeddings
-
+        self.normalize = bool(normalize_embeddings)
         self._embedding: SupportsLangChainEmbedding = HuggingFaceEmbeddings(
             model_name=self.model_name,
             model_kwargs={"device": self.device},
@@ -38,4 +40,8 @@ class HFEmbedder(BaseEmbedder):
         return self._embedding
 
     def __repr__(self) -> str:
-        return f"HFEmbedder(source={_HUGGINGFACE_SOURCE}, model='{self.model_name}', device='{self.device}', normalize={self.normalize})"
+        return (
+            f"HFEmbedder(source={_HUGGINGFACE_SOURCE}, "
+            f"model='{self.model_name}', device='{self.device}', "
+            f"normalize={self.normalize})"
+        )
